@@ -3,11 +3,12 @@ const SATURDAY      = 6,
       DEFAULT_CLOCK = [ {clock_in: '9:00', clock_out: '13:00'}, {clock_in: '14:00', clock_out: '18:00'} ]
 
 export class Hacktorial {
-  constructor(year, month, clock = null, holidays = []) {
+  constructor(year, month, employee_id, clock = null, holidays = []) {
     this.clock = this.setClock(clock)
     this.year = year || new Date().getUTCFullYear()
     this.month = month || new Date().getMonth() + 1
     this.holidays = holidays
+    this.employee_id = employee_id
 
     this.getPeriod()
   }
@@ -63,11 +64,13 @@ export class Hacktorial {
       response.text().then((content) => {
         let periods = JSON.parse(content)
         periods.forEach( (period) => {
-          if (period.month == this.month && period.year == this.year)
-            if (period.state == 'pending')
+          if (period.employee_id == this.employee_id && period.month == this.month && period.year == this.year) {
+            if (period.state == 'pending') {
               this.period_id = period.id
-            else
+            } else {
               console.log(`Hey man!, you cannot update this month, period: ${period.state}` )
+            }
+          }
         })
       })
     })
