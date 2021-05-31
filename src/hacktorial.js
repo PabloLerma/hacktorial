@@ -89,7 +89,7 @@ export class Hacktorial {
 
   async getPeriod() {
     const response = await fetch(
-      "https://api.factorialhr.com/attendance/periods/",
+      `https://api.factorialhr.com/attendance/periods?year=${this.year}&month=${this.month}`,
       { method: "GET", credentials: "include" }
     );
     const content = await response.text();
