@@ -112,9 +112,12 @@ export class Hacktorial {
   }
 
   async setWeekdaysInMonth() {
-    let today = new Date().getDate();
+    let isCurrentMonth = new Date().getMonth() + 1 === this.month;
+    let currentDay = new Date().getDate();
+    let totalDaysInMonth = new Date(this.year, this.month, 0).getDate();
+    let availableDaysInMonth = isCurrentMonth ? currentDay : totalDaysInMonth;
 
-    for (let day = 1; day <= today; day++) {
+    for (let day = 1; day <= availableDaysInMonth; day++) {
       if (this.isWeekday(day)) {
         for (const time of this.clock) {
           if (!this.holidays.includes(day)) {
