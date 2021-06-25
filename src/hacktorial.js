@@ -57,6 +57,7 @@ export class Hacktorial {
     if (!this.period_id) {
       console.log("Wait, period id not set!");
       console.log(`Check month: ${this.month} and year: ${this.year}.`);
+      return;
     }
 
     await this.setWeekdaysInMonth();
@@ -100,7 +101,7 @@ export class Hacktorial {
         period.month == this.month &&
         period.year == this.year
       ) {
-        if (period.state == "pending") {
+        if (period.state == "pending" || period.state == "in_progress") {
           this.period_id = period.id;
         } else {
           console.log(
